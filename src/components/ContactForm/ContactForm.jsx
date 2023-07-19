@@ -1,11 +1,12 @@
 import { Form, FormLabel, FormInput, FormButton } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 import Notiflix from 'notiflix';
-import { addContact } from 'redux/contactsSlice';
+// import { addContact } from 'redux/contactsSlice';
 
 export function ContactForm() {
-  const contacts = useSelector(getContacts);
+  const { contactsItem } = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const handleSubmit = evt => {
@@ -13,13 +14,14 @@ export function ContactForm() {
     const form = evt.target;
     const { name, number } = form.elements;
 
-    if (contacts.some(contact => contact.name === name.value)) {
+    if (contactsItem.some(contact => contact.name === name.value)) {
       Notiflix.Report.warning(
         'Warning',
         `${name.value} is already in contacts.`
       );
     } else {
-      dispatch(addContact(name.value, number.value));
+      dispatch(addContact({ name: name.value, phone: number.value }));
+      //
     }
     form.reset();
   };
