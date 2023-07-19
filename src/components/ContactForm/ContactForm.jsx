@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 import Notiflix from 'notiflix';
-// import { addContact } from 'redux/contactsSlice';
 
 export function ContactForm() {
   const { contactsItem } = useSelector(getContacts);
